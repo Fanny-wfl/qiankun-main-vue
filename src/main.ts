@@ -27,7 +27,7 @@ registerMicroApps([
     : []),
   {
     name: 'app-vue',
-    entry: import.meta.env.VITE_APP_VUE_HISTORY_ENTRY,
+    entry: import.meta.env.VITE_APP_VUE_ENTRY,
     container: '#child-app',
     activeRule: '/app-vue',
   },
