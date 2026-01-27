@@ -1,13 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import { qiankunWindow } from 'vite-plugin-qiankun/dist/helper'
 
 const router = createRouter({
-  history: createWebHistory(
-    qiankunWindow.__POWERED_BY_QIANKUN__
-      ? `/${import.meta.env.VITE_QIANKUN_APP_NAME}`
-      : '',
-  ), // import.meta.env.BASE_URL
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -25,13 +20,17 @@ const router = createRouter({
   ],
 })
 
-// router.listening = false
+router.beforeEach((to, from) => {
+  console.log('beforeEach')
 
-// router.beforeEach((to, from) => {
-//   console.log('Child beforeEach')
-//   // ...
-//   // 返回 false 以取消导航
-//   return false
-// })
+  // ...
+
+  // if (to.path === '/') {
+  //   return '/about'
+  // }
+
+  // 返回 false 以取消导航
+  // return false
+})
 
 export default router

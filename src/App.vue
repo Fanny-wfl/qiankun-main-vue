@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+
+const router = useRouter()
+
+const jumpTo = (url: string) => {
+  router.push(url)
+}
 </script>
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
@@ -19,11 +19,19 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+
+        <RouterLink to="/app-vue">app-vue</RouterLink>
+
+        <RouterLink to="/app-vue/about">app-vue about</RouterLink>
+
+        <RouterLink to="/app-purehtml">app purehtml</RouterLink>
       </nav>
     </div>
   </header>
 
   <RouterView />
+
+  <div id="child-app"></div>
 </template>
 
 <style scoped>

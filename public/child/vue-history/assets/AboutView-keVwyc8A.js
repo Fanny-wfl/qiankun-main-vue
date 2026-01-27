@@ -1,0 +1,1 @@
+import{_ as o,o as t,c as s,a}from"./index-Bqbm7j8-.js";const c={},n={class:"about"};function r(_,e){return t(),s("div",n,[...e[0]||(e[0]=[a("h1",null,"子应用 Vue About",-1)])])}const l=o(c,[["render",r]]);export{l as default};

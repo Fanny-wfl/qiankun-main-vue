@@ -4,7 +4,6 @@ import TheWelcome from '../components/TheWelcome.vue'
 
 <template>
   <main>
-    <!-- <TheWelcome /> -->
-    <h1>子应用 Vue Home</h1>
+    <TheWelcome />
   </main>
 </template>

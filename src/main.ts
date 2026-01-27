@@ -2,49 +2,39 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
-import type { App as AppInterface } from 'vue'
+import { registerMicroApps, start } from 'qiankun'
 
 import App from './App.vue'
 import router from './router'
 
-import {
-  renderWithQiankun,
-  qiankunWindow,
-} from 'vite-plugin-qiankun/dist/helper'
+const app = createApp(App)
 
-let app: AppInterface | null = null
-function render(props: { container?: HTMLElement } = {}) {
-  const { container } = props
+app.use(createPinia())
+app.use(router)
 
-  app = createApp(App)
+app.mount('#app')
 
-  app.use(createPinia())
-  app.use(router)
-
-  app.mount(
-    container ? (container.querySelector('#app') as HTMLElement) : '#app',
-  )
-}
-
-// 独立运行时
-if (!qiankunWindow.__POWERED_BY_QIANKUN__) {
-  render()
-}
-
-renderWithQiankun({
-  bootstrap() {
-    console.log('[vue] vue app bootstraped')
+registerMicroApps([
+  ...(import.meta.env.PROD
+    ? [
+        {
+          name: 'app-purehtml',
+          entry: import.meta.env.VITE_APP_PUREHTML_ENTRY,
+          container: '#child-app',
+          activeRule: '/app-purehtml',
+        },
+      ]
+    : []),
+  {
+    name: 'app-vue',
+    entry: import.meta.env.VITE_APP_VUE_HISTORY_ENTRY,
+    container: '#child-app',
+    activeRule: '/app-vue',
   },
-  mount(props) {
-    console.log('[vue] props from main framework', props)
-    render(props)
-  },
-  unmount(props) {
-    console.log('[vue] app will unmount')
-    app?.unmount()
-  },
-  update(props: any) {
-    console.log('vite update: ', props)
+])
+
+start({
+  sandbox: {
+    experimentalStyleIsolation: true,
   },
 })
