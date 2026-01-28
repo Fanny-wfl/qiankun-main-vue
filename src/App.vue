@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { jumpTo } from '@/utils/qiankun-helper.ts'
 
 const router = useRouter()
-
-const jumpTo = (url: string) => {
-  router.push(url)
-}
 </script>
 
 <template>
@@ -20,9 +17,8 @@ const jumpTo = (url: string) => {
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
 
-        <RouterLink to="/app-vue">app-vue</RouterLink>
-
-        <RouterLink to="/app-vue/about">app-vue about</RouterLink>
+        <button @click="jumpTo('/app-vue')">app-vue</button>
+        <button @click="jumpTo('/app-vue/about')">app-vue about</button>
 
         <RouterLink to="/app-purehtml">app purehtml</RouterLink>
       </nav>
